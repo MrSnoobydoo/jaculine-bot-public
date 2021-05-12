@@ -7,8 +7,13 @@ let ban_list = [];
 
 vc_channel.onMessage = (message)=>{
 
-    if(/^log/.test(message.content)){
+    if(/^log(s)?(.+)?$/i.test(message.content)){
         if(message.member.roles.cache.some(r => r.name === "Bébé Admin")){
+
+            if(RegExp.$1 == ""){
+                message.channel.send(process.env.ES_VISUAL+"\nOu taper **`logs`**");
+                return;
+            }
 
             fetch(process.env.ES_DATA)
             .then((rep)=>{return rep.text()})
@@ -49,7 +54,14 @@ vc_channel.onMessage = (message)=>{
                 str_cursor = 0;
                 var interval = setInterval(()=>{
 
-                    fetch(process.env.CAPTAIN_HOOK,
+                    let url;
+                    if(RegExp.$2 == " admin"){
+                        url = process.env.ADMIN_HOOK;
+                    }else{
+                        url = process.env.CAPTAIN_HOOK;
+                    }
+
+                    fetch(url,
                     {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},

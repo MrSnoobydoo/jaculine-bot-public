@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/MrSnoobydoo/jaculine-bot-public/issues"
   },
-  "homepage": "https://github.com/MrSnoobydoo/jaculine-bot-public#readme"
+  "homepage": "https://github.com/MrSnoobydoo/jaculine-bot-public#readme",
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "node-fetch": "^2.6.1"
+  }
 }

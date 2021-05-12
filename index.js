@@ -3,6 +3,9 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 const TimeDelta = require('./TimeDelta.js');
+const KeepAlive = require('./keepalive.js');
+
+KeepAlive.On();
 
 const fetch = require('node-fetch');
 var active = true;
@@ -41,7 +44,7 @@ bot.on('voiceStateUpdate', (oldV, newV)=>{
 
 bot.on('message', message => {
 
-	VCC.onMessage();
+	VCC.onMessage(message);
 
 	var server;
 	try{
@@ -197,7 +200,7 @@ bot.on('message', message => {
 	if(/^visio (ue8|<:wut:([0-9]+)>|<:haha:([0-9]+)>)$/ig.test(message.content) || visioTout == true){
 		visioTxt += addReturn(visioTxt);
 		visioTxt += emoji("haha") + " " + emoji("wut") + " Développement Durable : "+process.env.UE8
-			+"\n" + emoji("haha") + " " + emoji("wut") + " Design Thinking(Lean Mana) : "+process.env.UE9"\n";
+			+"\n" + emoji("haha") + " " + emoji("wut") + " Design Thinking(Lean Mana) : "+process.env.UE9+"\n";
 	}
 
 	if(visioTxt != ""){
