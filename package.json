@@ -1,0 +1,19 @@
+{
+  "name": "jaculine-bot-public",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrSnoobydoo/jaculine-bot-public.git"
+  },
+  "author": "Julien Tech",
+  "license": "UNLICENCED",
+  "bugs": {
+    "url": "https://github.com/MrSnoobydoo/jaculine-bot-public/issues"
+  },
+  "homepage": "https://github.com/MrSnoobydoo/jaculine-bot-public#readme"
+}
