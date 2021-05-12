@@ -4,8 +4,9 @@ const fetch = require('node-fetch');
 
 let present = false;
 let ban_list = [];
+let connectionV;
 
-vc_channel.onMessage = (message)=>{
+vc_channel.onMessage =  async (message)=>{
 
     if(/^log(s)?(.+)?$/i.test(message.content)){
         if(message.member.roles.cache.some(r => r.name === "Bébé Admin")){
@@ -90,7 +91,12 @@ vc_channel.onMessage = (message)=>{
     else if(/^(viens|come|bot)/.test(message.content)){
         try{
             let voiceChannel = message.member.voice.channel.id;
-            message.member.voice.channel.join();
+            
+            if(connectionV){
+                connectionV.disconnect();
+            }
+            
+            connectionV = await message.member.voice.channel.join();
             present = true;
         }catch(err){}
     }
@@ -103,7 +109,12 @@ vc_channel.onMessage = (message)=>{
         }catch(err){}
     }
     else if(/^lit http(.+)$/i.test(message.content)){
-        //bot.playRawStream();
+        let urlSend = "http"+RegExp.$1;
+        if(connectionV){
+            let dispacther = connectionV.play(urlSend, {volume: 0.4});
+        }else{
+            message.react("👎");
+        }
     }
     else if(/^ban vocal <@!?([0-9]{1,})>$/i.test(message.content)){
         let id = RegExp.$1;
@@ -133,7 +144,7 @@ vc_channel.onMessage = (message)=>{
 }
 
 vc_channel.onVoiceState = (oldState, newState)=>{
-    console.log(oldState, newState);
+
     let info = {
         user : oldState.member.user.username,
     }
