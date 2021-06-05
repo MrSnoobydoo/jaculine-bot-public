@@ -5,6 +5,12 @@ const fetch = require('node-fetch');
 let present = false;
 let ban_list = [];
 let connectionV;
+let forcerQuitte = false;
+
+vc_channel.onReady = async (bot)=>{
+    /*let channel = bot.channels.cache.get('844286936624529428');
+    connectionV = await channel.join();*/
+};
 
 vc_channel.onMessage = async (message) => {
 
@@ -106,6 +112,7 @@ vc_channel.onMessage = async (message) => {
             let voiceChannel = message.member.voice.channel.id;
             message.member.voice.channel.leave();
             present = false;
+            forcerQuitte = true;
         } catch (err) { }
     }
     else if (/^lit http(.+)$/i.test(message.content)) {
@@ -143,16 +150,37 @@ vc_channel.onMessage = async (message) => {
 
 }
 
-vc_channel.onVoiceState = (oldState, newState) => {
+let voc = ['694477338238386196', '751217789376659507', '689520044786450510', '844286936624529428'];
 
+let choix = 0;
+
+vc_channel.onVoiceState = async (oldState, newState, bot) => {
+    
     let info = {
         user: oldState.member.user.username,
     }
 
     if (newState.channelID === null) {
+        if(newState.member.user.bot){
+
+            if(forcerQuitte == false){
+                if(choix >= voc.length-1)
+                    choix = 0;
+                else
+                    choix ++;
+                    
+                let channel = bot.channels.cache.get(voc[choix]);
+                connectionV = await channel.join();
+            }else{
+                forcerQuitte = false;
+            }
+
+        }
         info.deco = oldState.channel.name;
     }
     else if (oldState.channelID === null) {
+
+        if(oldState.member.user.bot) return
 
         if (ban_list.includes(newState.member.user.id)) {
             newState.guild.member(newState.member.user.id).voice.setChannel(null);
@@ -160,8 +188,12 @@ vc_channel.onVoiceState = (oldState, newState) => {
         } else {
             info.co = newState.channel.name;
         }
+
     }
     else if (oldState.channel.id != newState.channel.id) {
+
+        if(newState.member.user.bot) return
+
         info.move = { old: oldState.channel.name, new: newState.channel.name };
     }
     info.date = new Date().getTime();
@@ -186,3 +218,17 @@ vc_channel.onVoiceState = (oldState, newState) => {
 }
 
 module.exports = vc_channel;
+
+
+/*
+
+fetch("", {
+     method: 'POST',
+     headers: new Headers({
+      "Content-Type": "application/json"}),
+    body: JSON.stringify({
+        content: "Ossonce sous-catégorie"
+    })
+})
+
+*/

@@ -1,4 +1,4 @@
-// Verison 1.1
+// Verison 1.1.2
 
 const Discord = require('discord.js');
 const bot = new Discord.Client();
@@ -28,18 +28,23 @@ var spam = {
 	}
 }
 
+setInterval(function(){
+    KeepAlive.Call();
+}, 1000 * 60 * 30);
+
 bot.once('ready', () => {
 	console.log('Ready!');
 	bot.user.setPresence({
-	    status: 'online',
+	    status: 'idle',
 	    activity: {
-	        name: '!a for anonymous message'
+	        name: "Super Mario 63"
 	    }
 	});
+    VCC.onReady(bot);
 });
 
 bot.on('voiceStateUpdate', (oldV, newV)=>{
-	VCC.onVoiceState(oldV, newV);
+	VCC.onVoiceState(oldV, newV, bot);
 });
 
 bot.on('message', message => {
@@ -54,6 +59,12 @@ bot.on('message', message => {
 		server = infos.remontada;
 	}
 	var salon = message.channel.id;
+
+    if(salon == "689520044786450453"){
+        console.log(message.author.id);
+        console.log("MSG(" + message.author.username + ") : " + message.content);
+        //message.delete();
+    }
 
 	if(/^!a(.+)$/igs.test(message.content)){
 		message.delete();
@@ -149,7 +160,7 @@ bot.on('message', message => {
 		message.reply("```json\n"+JSON.stringify(message)+"\n```");
 	}
 
-	if(/gif ?([a-z0-9 .-]+)?$/i.test(message.content) && !message.author.bot){
+	if(/!gif ?([a-z0-9 .-]+)?$/i.test(message.content) && !message.author.bot){
 		console.log("\x1b[33m GIF REQUEST : ", RegExp.$1, " - ", new Date(), "\x1b[0m");
 		RandomGIF(message, RegExp.$1);
 		return;
@@ -255,7 +266,7 @@ function RndMssg(tab, nb=1){
 }
 
 function interact(message){
-	if(message.content == "@garlic" || /(https:\/\/garticphone.com\/fr\/?\?c=([0-9a-zA-Z]*))/.test(message.content)){
+	/*if(message.content == "@garlic" || /(https:\/\/garticphone.com\/fr\/?\?c=([0-9a-zA-Z]*))/.test(message.content)){
 		console.log("\x1b[36m GARLIC REQUEST : ", RegExp.$1, " - ", new Date(), "\x1b[0m");
 		message.content = message.content.replace("@garlic", "https://garticphone.com/fr");
 		message.channel.send("VENEZ JOUER @everyone " + message.content);
@@ -263,7 +274,7 @@ function interact(message){
 			message.channel.send("VIENS ENCUL" + "é".repeat(i*i) + "E " + ":middle_finger:".repeat(i*i) + "@here");
 		}
 		message.channel.send("https://media.giphy.com/media/6qdKZFhT0VBm0/giphy.gif");*/
-	}
+	//}
 }
 
 function RandomGIF(message, reg){
