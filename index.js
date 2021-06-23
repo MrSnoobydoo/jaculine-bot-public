@@ -41,6 +41,16 @@ bot.once('ready', () => {
 	    }
 	});
     VCC.onReady(bot);
+
+
+    //bot.guilds.cache.get(infos.remontada).channels.cache.
+    bot.channels.cache.get("694084554750689370").messages.fetch({limit: 4}).then((messages)=>{
+        //https://stackoverflow.com/questions/60609287/discord-js-get-a-list-of-all-users-sent-messages
+        messages.forEach(m=>{
+            console.log(m.content);
+        });
+    })
+
 });
 
 bot.on('voiceStateUpdate', (oldV, newV)=>{
@@ -64,6 +74,36 @@ bot.on('message', message => {
         console.log(message.author.id);
         console.log("MSG(" + message.author.username + ") : " + message.content);
         //message.delete();
+    }
+
+
+    /*
+        SUPRESSION DE MESSAGE
+    */
+    if(/^!supprimer ([0-9]{1,}) (.+)$/ig.test(message.content)){
+        let nb = parseInt(RegExp.$1);
+        
+
+        if(!message.mentions.users.first() || nb > 100){
+            message.react("⛔");
+            return;
+        }
+        message.react("👌");
+
+        let userID = message.mentions.users.first().id;
+        
+        bot.channels.cache.get(salon).messages.fetch({limit: nb}).then((messages)=>{
+            //https://stackoverflow.com/questions/60609287/discord-js-get-a-list-of-all-users-sent-messages
+            messages.forEach(m=>{
+                if(m.author.id === userID){
+                    m.delete();
+                    console.log(m.content);
+                }
+                    
+            });
+        })
+    }else if(/^!supprimer/.test(message.content)){
+        message.react("⛔");
     }
 
 	if(/^!a(.+)$/igs.test(message.content)){
