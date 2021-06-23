@@ -193,8 +193,6 @@ bot.on('message', message => {
 
 	// Filter channel Discord
 
-	if((server == infos.ecolebot || server == infos.remontada) && !message.author.bot) interact(message)
-
 	if (message.content === 'ping') {
 		message.reply('pong !')
 		message.reply("```json\n"+JSON.stringify(message)+"\n```");
@@ -303,18 +301,6 @@ function RndMssg(tab, nb=1){
 	}
 	
 	return liste;
-}
-
-function interact(message){
-	/*if(message.content == "@garlic" || /(https:\/\/garticphone.com\/fr\/?\?c=([0-9a-zA-Z]*))/.test(message.content)){
-		console.log("\x1b[36m GARLIC REQUEST : ", RegExp.$1, " - ", new Date(), "\x1b[0m");
-		message.content = message.content.replace("@garlic", "https://garticphone.com/fr");
-		message.channel.send("VENEZ JOUER @everyone " + message.content);
-		/*for(var i = 0; i < 3; i++){
-			message.channel.send("VIENS ENCUL" + "é".repeat(i*i) + "E " + ":middle_finger:".repeat(i*i) + "@here");
-		}
-		message.channel.send("https://media.giphy.com/media/6qdKZFhT0VBm0/giphy.gif");*/
-	//}
 }
 
 function RandomGIF(message, reg){
