@@ -1,7 +1,6 @@
 {
-  "name": "jaculine-bot-public",
-  "version": "1.0.0",
-  "description": "",
+  "name": "la-remontada-1",
+  "version": "2.2.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -20,5 +19,7 @@
     "@discordjs/opus": "^0.5.0",
     "discord.js": "^12.5.3",
     "node-fetch": "^2.6.1"
-  }
+  },
+  "devDependencies": {},
+  "description": ""
 }

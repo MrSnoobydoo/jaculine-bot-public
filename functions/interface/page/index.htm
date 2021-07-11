@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin - La Remontada</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
+<style>
+body{
+    background: #191919;
+}
+
+#animation{
+    transition : all 800ms ease;
+}
+
+/**/
+#illustration{
+    width: 100%;
+    max-width: 800px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    filter: invert(0.9);
+}
+#titre{
+    font-family: 'Acme', Arial, sans-serif;
+    top: 74%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4em;
+    text-shadow: 0px 0px 4px #0a0a0a;
+    color: #191919;
+    position: absolute;
+    animation : animText 800ms infinite;
+}
+@keyframes animText{
+    0%{color : #191919;}
+    15%{color: #ff3030;}
+    16%{color: #191919}
+    30%{color: #ff3030;}
+    32%{color : #191919;}
+    100%{color : #191919;}
+}
+
+</style>
+    </head>
+    <body>
+        <div id="animation">
+            <img id="illustration" src="https://i.pinimg.com/originals/a4/bc/ff/a4bcff2d1086aec96f1a0b92eb57d767.gif" alt="My Bad">
+            <p id="titre">La Remontada</p>
+        </div>
+<script>
+
+const Q = e=>document.querySelector(e);
+
+
+</script>
+    </body>
+</html>
